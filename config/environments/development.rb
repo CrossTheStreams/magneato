@@ -34,4 +34,8 @@ Magneato::Application.configure do
 
   # Expands the lines which load the assets
   config.assets.debug = true
+
+  # AS SEEN ON THE INTERNETS
+  # https://github.com/DanKnox/websocket-rails/wiki/Installation-and-Setup
+  config.middleware.delete Rack::Lock
 end
