@@ -12,7 +12,7 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require_tree ./desktop
-//= require twitter/bootstrap
+//= require_tree ./mobile
+//= require jquerymobile
 //= require websocket_rails/main
 
