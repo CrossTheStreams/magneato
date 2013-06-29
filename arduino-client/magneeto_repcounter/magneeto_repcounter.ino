@@ -9,17 +9,28 @@
  
  Circuit:
  * Wifi shield attached to pins 10, 11, 12, 13
+ * MPU-9150 attached to pins A4, A5, D2 (with 3V3 power and gnd)
  
+ Based on WiFi demo
  created 23 April 2012
  modifide 31 May 2012
  by Tom Igoe
  
- http://arduino.cc/en/Tutorial/WifiWebClientRepeating
- This code is in the public domain.
+ Updated 2013 June 29 by Boris Joffe and Morgan Redfield
+ 
  */
 
 #include <SPI.h>
 #include <WiFi.h>
+
+// Arduino Wire library is required if I2Cdev I2CDEV_ARDUINO_WIRE implementation
+// is used in I2Cdev.h
+#include "Wire.h"
+
+// I2Cdev and MPU6050 must be installed as libraries, or else the .cpp/.h files
+// for both classes must be in the include path of your project
+#include "I2Cdev.h"
+#include "MPU6050.h"
 
 char ssid[] = "LikeBright";      //  your network SSID (name) 
 char pass[] = "LikeBright123";   // your network password
@@ -48,9 +59,18 @@ unsigned long lastConnectionTime = 0;           // last time you connected to th
 boolean lastConnected = false;                  // state of the connection last time through the main loop
 const unsigned long postingInterval = 10*1000;  // delay between updates, in milliseconds
 
+// class default I2C address is 0x68
+// specific I2C addresses may be passed as a parameter here
+// AD0 low = 0x68 (default for InvenSense evaluation board)
+// AD0 high = 0x69
+MPU6050 accelgyro;
+
+int16_t ax, ay, az;
+int rep_state;
+
 void setup() {
   //Initialize serial and wait for port to open:
-  Serial.begin(9600); 
+  Serial.begin(38400); 
   /*while (!Serial) {
     ; // wait for serial port to connect. Needed for Leonardo only
   }*/
@@ -74,18 +94,37 @@ void setup() {
   } 
   // you're connected now, so print out the status:
   printWifiStatus();
+  
+  // Rep Counter and Accel setup
+  // join I2C bus (I2Cdev library doesn't do this automatically)
+  Wire.begin();
+  // initialize device
+  Serial.println("Initializing I2C devices...");
+  accelgyro.initialize();
+
+  // verify connection
+  Serial.println("Testing device connections...");
+  Serial.println(accelgyro.testConnection() ? "MPU9150 connection successful" : "MPU9150 connection failed");
+    
+  //magneeto custom stuff
+  // todo: add in LPF for accel (can I do that on the MPU9150
+  // todo: add in calibration for random placement on weight
+  rep_state = 0;
+
 }
 
 void loop() {
+  // read raw accel/gyro measurements from device
+  accelgyro.getAcceleration(&ax, &ay, &az);
+    
   // if there's incoming data from the net connection.
   // send it out the serial port.  This is for debugging
   // purposes only:
   //Serial.println("Attempting to read from client...");
-  
-  while (client.available()) {
-    char c = client.read();
-    Serial.write(c);
-  }
+//  while (client.available()) {
+//    char c = client.read();
+//    Serial.write(c);
+//  }
   
   /*
   // time between request sent and response received
@@ -96,6 +135,28 @@ void loop() {
   strcat(str, ltoa(duration, strDuration, 5));
   
   Serial.println(str);*/
+  
+  // determine if a rep has been performed
+  if (rep_state == 0)
+  {
+      if (az < 0)
+      {
+          rep_state = 1; 
+      }
+  } else if (rep_state == 1)
+  {
+      if (az < -6500) {
+          rep_state = 2; 
+       }
+    } else // rep_state = 2
+    {
+        if (az > 0) {
+            rep_state = 1;
+            Serial.println("rep");
+            
+            httpRequest();
+        }
+    }
 
   // if there's no net connection, but there was one last time
   // through the loop, then stop the client:
@@ -107,9 +168,9 @@ void loop() {
 
   // if you're not connected, and ten seconds have passed since
   // your last connection, then connect again and send data:
-  if(!client.connected() && (millis() - lastConnectionTime > postingInterval)) {
-    httpRequest();
-  }
+//  if(!client.connected() && (millis() - lastConnectionTime > postingInterval)) {
+//    httpRequest();
+//  }
   // store the state of the connection for next time through
   // the loop:
   lastConnected = client.connected();
