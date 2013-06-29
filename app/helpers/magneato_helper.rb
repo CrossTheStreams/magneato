@@ -1,0 +1,2 @@
+module MagneatoHelper
+end
