@@ -7,7 +7,24 @@ gem 'rails', '3.2.13'
 
 gem 'pg'
 gem 'sass-twitter-bootstrap-rails', '~> 1.0'
-gem 'pry'
+
+# once you go haml, you don't go back
+gem 'haml-rails'
+
+# like irb, but sexier and better in every way
+gem 'pry-rails'
+#gem "jquerymobile-rails"
+
+gem 'websocket-rails'
+
+# server-side mobile detection
+#gem 'mobylette', '3.1' 
+
+# SQLite version 3.x
+#   gem install sqlite3
+#
+#   Ensure the SQLite 3 gem is defined in your Gemfile
+#   gem 'sqlite3'
 
 # Gems used only for assets and not required
 # in production environments by default.
