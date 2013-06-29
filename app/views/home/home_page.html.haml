@@ -1,0 +1,37 @@
+=content_for :head do
+  = stylesheet_link_tag "home"
+  = javascript_include_tag "home"
+  .all_content.center
+    .span12
+      .logo
+        %img(src="/magneeto_logo.png")
+
+    .workouts
+      .container-fluid
+        .row
+          .span3
+            .button-workouts
+              = link_to image_tag( '/icons/chest.png')
+              %h3 Chest
+          .span3
+            .button-workouts
+              = link_to image_tag( '/icons/arms.png')
+              %h3 Arms
+        .row
+          .span3
+            .button-workouts
+              = link_to image_tag( '/icons/legs.png')
+              %h3 Legs
+          .span3
+            .button-workouts
+              = link_to image_tag( '/icons/back.png')
+              %h3 Back
+        .row
+          .span3
+            .button-workouts
+              = link_to image_tag( '/icons/shoulders.png')
+              %h3 shoulders
+          .span3
+            .button-workouts
+              = link_to image_tag( '/icons/core.png')
+              %h3 Core
