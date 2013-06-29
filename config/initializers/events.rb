@@ -49,7 +49,7 @@ WebsocketRails::EventMap.describe do
   # The above will handle an event triggered on the client like `product.new`.
   
   namespace :rep do
-    subscribe :new, :to => MagneatoController, :with_method => :new
+    subscribe :new, :to => RepController, :with_method => :new_rep
   end
 
 end

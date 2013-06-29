@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class MagneatoControllerTest < ActionController::TestCase
+class RepControllerTest < ActionController::TestCase
   # test "the truth" do
   #   assert true
   # end
