@@ -1,5 +1,33 @@
-=content_for :head do 
-  = stylesheet_link_tag "counter"
-  = javascript_include_tag "counter"
-%h3 OMG SO HARDCORE!!
-%h1.jumbotron#reps.hide 0
+=content_for :head do
+  =javascript_include_tag "counter"
+  =stylesheet_link_tag "counter"
+  =stylesheet_link_tag "application"
+.all_content.center
+  .header
+    .container-fluid
+      .row
+        .span2
+          %h3 Back
+        .span2
+          %h3 Arms
+  .main_content{:style => "font-style:helvetica neue ultra light;"}
+    %select
+      %option Exercise
+      %option Preacher Curl
+      %option Hammer Curl
+      %option Reverse Curl
+      %option Tricep Extention
+    %select
+      %option Weight
+      %option 5
+      %option 10
+      %option 15
+      %option 20
+      %option 25
+      %option 35
+      %option 40
+      %option 45
+      %option 50
+    = button_to 'Start'
+    %h1.jumbotron#reps.hide 0
+    = button_to 'Stop'
