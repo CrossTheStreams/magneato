@@ -67,6 +67,7 @@ MPU6050 accelgyro;
 
 int16_t ax, ay, az;
 int rep_state;
+int totalReps = 0;
 
 void setup() {
   //Initialize serial and wait for port to open:
@@ -121,10 +122,12 @@ void loop() {
   // send it out the serial port.  This is for debugging
   // purposes only:
   //Serial.println("Attempting to read from client...");
-//  while (client.available()) {
-//    char c = client.read();
-//    Serial.write(c);
-//  }
+  while (client.available() && status == WL_CONNECTED) {
+    char c = client.read();
+    //Serial.write(c);
+  }
+  client.flush();
+  client.stop();
   
   /*
   // time between request sent and response received
@@ -132,7 +135,7 @@ void loop() {
   char strDuration[5];
   
   char str[100] = "POST Request took ";
-  strcat(str, ltoa(duration, strDuration, 5));
+  strcat(str, ltoa(duration, strDuration, 10));
   
   Serial.println(str);*/
   
@@ -152,7 +155,12 @@ void loop() {
     {
         if (az > 0) {
             rep_state = 1;
-            Serial.println("rep");
+            totalReps++;
+            char strReps[10] = "Rep ";
+            char strTotalReps[6];
+            itoa(totalReps, strTotalReps, 10);
+            strcat(strReps, strTotalReps);
+            Serial.println(strReps);
             
             httpRequest();
         }
@@ -161,8 +169,8 @@ void loop() {
   // if there's no net connection, but there was one last time
   // through the loop, then stop the client:
   if (!client.connected() && lastConnected) {
-    Serial.println();
-    Serial.println("disconnecting.");
+    Serial.println("disconnecting.\n");
+    client.flush();
     client.stop();
   }
 
@@ -181,7 +189,7 @@ void httpRequest() {
   // if there's a successful connection:
   
   if (client.connect(server, serverPort)) {
-    Serial.println("\nconnecting...");
+    Serial.println("Connecting...");
     // send the HTTP PUT request:
     client.println("GET /counter/ping HTTP/1.1");
     char hostStr[] = "Host: ";
@@ -196,7 +204,11 @@ void httpRequest() {
     // note the time that the connection was made:
     lastConnectionTime = millis();
     requestSentTime = millis();
-    Serial.println("Sent request to server");
+    char strReps[50] = "Sent to server: Rep ";
+    char strTotalReps[6];
+    itoa(totalReps, strTotalReps, 10);
+    strcat(strReps, strTotalReps);
+    Serial.println(strReps);
   } 
   else {
     // if you couldn't make a connection:
@@ -209,6 +221,7 @@ void httpRequest() {
     strcat(str, "...disconnecting");
     
     Serial.println(str);
+    client.flush();
     client.stop();
   }
 }
