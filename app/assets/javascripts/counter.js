@@ -1,14 +1,5 @@
 $(document).ready(function() {
-  init_count = parseInt(localStorage["reps_count"]);
-
-  if (typeof(init_count) == "undefined") {
-    init_count = 0;
-    ensure_reps_count(init_count);
-  }
-  else {
-    ensure_reps_count(init_count) 
-  }
-
+  init_count = ensure_reps_count(localStorage["reps_count"]);
 
   channel = dispatcher.subscribe('rep_channel')
 
@@ -27,5 +18,13 @@ function update_count (elem) {
 };
 
 function ensure_reps_count(count) {
-  $("#reps").text(count.toString()).fadeIn()
+  var ret_count;
+  if (typeof(count) == "undefined") {
+    ret_count = 0; 
+  }
+  else if (typeof(parseInt(count) == "number")) {
+    ret_count = count; 
+  }
+  $("#reps").text(ret_count.toString()).fadeIn()
+  return ret_count;
 };
