@@ -13,12 +13,11 @@ gem 'haml-rails'
 
 # like irb, but sexier and better in every way
 gem 'pry-rails'
-gem "jquerymobile-rails"
 
 gem 'websocket-rails'
 
 # server-side mobile detection
-gem 'mobylette', '3.1' 
+#gem 'mobylette', '3.1' 
 
 # SQLite version 3.x
 #   gem install sqlite3
