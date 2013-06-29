@@ -13,12 +13,13 @@
  */
 
 @import "twitter/bootstrap";
+body {
+  background-color:#f7f7f7;
+}
 .center{
   text-align:center;
-}
-.all_content{
-  margin:0 auto;
-  float:none;
+  margin-left:auto;
+  margin-right:auto;
 }
 .logo{
   background-color:#E5E5E5;
@@ -34,3 +35,25 @@
   height: 200px;
   width:  200px;
 }
+
+.blue-text {
+  color: #25aae0;
+}
+.red-text {
+  color: #d20814;
+}
+.green-text {
+  color: #2fc33c;
+}
+.hipster-btn {
+  cursor: pointer;
+  background: none;
+  border: none;
+  box-shadow: none;
+}
+.magneato-header {
+ margin-bottom: 50px;
+ height:86px;
+ background-color: #f0f0f0;
+}
+

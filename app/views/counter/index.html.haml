@@ -3,13 +3,12 @@
   =stylesheet_link_tag "counter"
   =stylesheet_link_tag "application"
 .all_content.center
-  .header
-    .container-fluid
-      .row
-        .span2
-          %h3 Back
-        .span2
-          %h3 Arms
+  .header.magneato-header
+    .row
+      .span6
+        %h3.blue-text < Back
+      .span6
+        %h3.blue-text Arms
   .main_content{:style => "font-style:helvetica neue ultra light;"}
     %select
       %option Exercise
@@ -17,6 +16,7 @@
       %option Hammer Curl
       %option Reverse Curl
       %option Tricep Extention
+    %br
     %select
       %option Weight
       %option 5
@@ -28,6 +28,7 @@
       %option 40
       %option 45
       %option 50
-    = button_to 'Start'
-    %span#reps 0
-    = button_to 'Stop'
+    .hipster-btn.green-text Start
+    %h1.jumbotron#reps.hide 0
+    .hipster-btn.red-text Stop
+
