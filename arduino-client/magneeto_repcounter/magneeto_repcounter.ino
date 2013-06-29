@@ -135,7 +135,7 @@ void loop() {
   char strDuration[5];
   
   char str[100] = "POST Request took ";
-  strcat(str, ltoa(duration, strDuration, 5));
+  strcat(str, ltoa(duration, strDuration, 10));
   
   Serial.println(str);*/
   
@@ -158,7 +158,7 @@ void loop() {
             totalReps++;
             char strReps[10] = "Rep ";
             char strTotalReps[6];
-            itoa(totalReps, strTotalReps, 6);
+            itoa(totalReps, strTotalReps, 10);
             strcat(strReps, strTotalReps);
             Serial.println(strReps);
             
@@ -169,8 +169,7 @@ void loop() {
   // if there's no net connection, but there was one last time
   // through the loop, then stop the client:
   if (!client.connected() && lastConnected) {
-    Serial.println();
-    Serial.println("disconnecting.");
+    Serial.println("disconnecting.\n");
     client.flush();
     client.stop();
   }
@@ -207,7 +206,7 @@ void httpRequest() {
     requestSentTime = millis();
     char strReps[50] = "Sent to server: Rep ";
     char strTotalReps[6];
-    itoa(totalReps, strTotalReps, 6);
+    itoa(totalReps, strTotalReps, 10);
     strcat(strReps, strTotalReps);
     Serial.println(strReps);
   } 
