@@ -30,12 +30,16 @@ WiFiClient client;
 // server address:
 //char server[] = "www.arduino.cc";
 //IPAddress server(64,131,82,241);
-char server[] = "192.168.1.142";
+char server[] = "192.168.1.124";
 //char serverIP[] = "www.arduino.cc"
-char serverIP[] = "192.168.1.142";
+char serverIP[] = "192.168.1.124";
+
+// http://192.168.1.124:3000/counter/ping
 
 //int serverPort = 80;
-int serverPort = 2000;
+int serverPort = 3000;
+
+unsigned long requestSentTime = 0;
 
 unsigned long lastConnectionTime = 0;           // last time you connected to the server, in milliseconds
 boolean lastConnected = false;                  // state of the connection last time through the main loop
@@ -44,9 +48,9 @@ const unsigned long postingInterval = 10*1000;  // delay between updates, in mil
 void setup() {
   //Initialize serial and wait for port to open:
   Serial.begin(9600); 
-  while (!Serial) {
+  /*while (!Serial) {
     ; // wait for serial port to connect. Needed for Leonardo only
-  }
+  }*/
   
   // check for the presence of the shield:
   if (WiFi.status() == WL_NO_SHIELD) {
@@ -73,10 +77,22 @@ void loop() {
   // if there's incoming data from the net connection.
   // send it out the serial port.  This is for debugging
   // purposes only:
+  //Serial.println("Attempting to read from client...");
+  
   while (client.available()) {
     char c = client.read();
     Serial.write(c);
   }
+  
+  /*
+  // time between request sent and response received
+  unsigned long duration = millis() - requestSentTime;
+  char strDuration[5];
+  
+  char str[100] = "POST Request took ";
+  strcat(str, ltoa(duration, strDuration, 5));
+  
+  Serial.println(str);*/
 
   // if there's no net connection, but there was one last time
   // through the loop, then stop the client:
@@ -101,23 +117,34 @@ void httpRequest() {
   // if there's a successful connection:
   
   if (client.connect(server, serverPort)) {
-    Serial.println("connecting...");
+    Serial.println("\nconnecting...");
     // send the HTTP PUT request:
-    client.println("GET /index.html HTTP/1.1");
-    client.println(strcat("Host: ", serverIP));
+    client.println("GET /counter/ping HTTP/1.1");
+    char hostStr[] = "Host: ";
+    strcat(hostStr, serverIP);
+    client.println(hostStr);
     client.println("User-Agent: arduino-ethernet");
-    client.println("Content-Type: application/x-www-form-urlencoded");
-    client.println("Name=Jonathan+Doe&Age=23&Formula=a+%2B+b+%3D%3D+13%25%21");
+    //client.println("Content-Type: application/x-www-form-urlencoded");
+    //client.println("Name=Jonathan+Doe&Age=23&Formula=a+%2B+b+%3D%3D+13%25%21");
     client.println("Connection: close");
     client.println();
 
     // note the time that the connection was made:
     lastConnectionTime = millis();
+    requestSentTime = millis();
+    Serial.println("Sent request to server");
   } 
   else {
     // if you couldn't make a connection:
-    Serial.println("connection failed");
-    Serial.println("disconnecting.");
+    char str[200] = "connection to ", strPort[9];
+    itoa(serverPort, strPort, 10);
+    strcat(str, server);
+    strcat(str, " on port ");
+    strcat(str, strPort);
+    strcat(str, " failed");
+    strcat(str, "...disconnecting");
+    
+    Serial.println(str);
     client.stop();
   }
 }
