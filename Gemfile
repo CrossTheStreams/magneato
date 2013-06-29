@@ -13,6 +13,7 @@ gem 'haml-rails'
 
 # like irb, but sexier and better in every way
 gem 'pry-rails'
+#gem "jquerymobile-rails"
 
 gem 'websocket-rails'
 

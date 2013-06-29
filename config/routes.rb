@@ -51,6 +51,9 @@ Magneato::Application.routes.draw do
   root :to => 'home#home_page'
 
   match '/counter' => 'counter#index'
+  
+  match '/counter/ping' => 'counter#ping_rep'
+
   match '/workout' => 'workout#index'
 
 
