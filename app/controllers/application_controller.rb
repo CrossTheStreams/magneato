@@ -1,4 +1,11 @@
 class ApplicationController < ActionController::Base
-  include Mobylette::RespondToMobileRequests
   protect_from_forgery
+  include Mobylette::RespondToMobileRequests
+
+  mobylette_config do |config|
+    config[:fallback_chains] = { 
+      mobile: [:mobile, :html],
+    }
+  end 
+
 end

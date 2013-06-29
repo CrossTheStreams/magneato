@@ -18,7 +18,7 @@ gem "jquerymobile-rails"
 gem 'websocket-rails'
 
 # server-side mobile detection
-gem 'mobylette'
+gem 'mobylette', '3.1' 
 
 # SQLite version 3.x
 #   gem install sqlite3

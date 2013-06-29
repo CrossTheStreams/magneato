@@ -1,11 +1,11 @@
 !!!
 %html
 %head
-  %title>Magneeto
-    = stylesheet_link_tag, "mobile", :media => "all"
-    = javascript_include_tag "mobile"
-    = csrf_meta_tags
-    %meta{ name: :viewport, content: 'width=device-width, initial-scale=1'}
+  %title Magneeto
+  = stylesheet_link_tag "mobile", :media => "all"
+  = javascript_include_tag "mobile"
+  = csrf_meta_tags
+  %meta{ name: :viewport, content: 'width=device-width, initial-scale=1'}
 %body
   = yield
 
