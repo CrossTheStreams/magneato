@@ -52,6 +52,7 @@ char serverIP[] = "192.168.1.124";
 
 //int serverPort = 80;
 int serverPort = 3000;
+int wifiTTL = 3000;
 
 unsigned long requestSentTime = 0;
 
@@ -91,7 +92,7 @@ void setup() {
     status = WiFi.begin(ssid, pass);
 
     // wait 10 seconds for connection:
-    delay(10000);
+    delay(wifiTTL);
   } 
   // you're connected now, so print out the status:
   printWifiStatus();
@@ -101,12 +102,14 @@ void setup() {
   Wire.begin();
   // initialize device
   Serial.println("Initializing I2C devices...");
+  // TODO - program stops here and requires reset to continue successfully
   accelgyro.initialize();
 
   // verify connection
   Serial.println("Testing device connections...");
   Serial.println(accelgyro.testConnection() ? "MPU9150 connection successful" : "MPU9150 connection failed");
-    
+  Serial.println();
+  
   //magneeto custom stuff
   // todo: add in LPF for accel (can I do that on the MPU9150
   // todo: add in calibration for random placement on weight
@@ -122,12 +125,14 @@ void loop() {
   // send it out the serial port.  This is for debugging
   // purposes only:
   //Serial.println("Attempting to read from client...");
+  // && status == WL_CONNECTED // <-- do we need this as a condition
+  
   while (client.available() && status == WL_CONNECTED) {
     char c = client.read();
     //Serial.write(c);
   }
   client.flush();
-  client.stop();
+  //client.stop();
   
   /*
   // time between request sent and response received
@@ -170,7 +175,7 @@ void loop() {
   // through the loop, then stop the client:
   if (!client.connected() && lastConnected) {
     Serial.println("disconnecting.\n");
-    client.flush();
+    //client.flush();
     client.stop();
   }
 
@@ -221,7 +226,7 @@ void httpRequest() {
     strcat(str, "...disconnecting");
     
     Serial.println(str);
-    client.flush();
+    //client.flush();
     client.stop();
   }
 }
