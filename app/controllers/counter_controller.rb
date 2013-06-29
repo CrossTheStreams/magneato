@@ -1,0 +1,2 @@
+class CounterController < ApplicationController
+end

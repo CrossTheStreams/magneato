@@ -50,8 +50,8 @@ Magneato::Application.routes.draw do
   # just remember to delete public/index.html. 
   root :to => 'home#home_page'
 
-  match '/counter' => 'home#counter'
-  match '/workout' => 'home#workout'
+  match '/counter' => 'counter#index'
+  match '/workout' => 'workout#index'
 
 
   # See how all your routes lay out with "rake routes"

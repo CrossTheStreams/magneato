@@ -13,6 +13,6 @@
 //= require jquery
 //= require jquery_ujs
 //= require_tree ./desktop
-//= require twitter/bootstrap
 //= require websocket_rails/main
+//
 
