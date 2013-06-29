@@ -8,11 +8,12 @@ gem 'rails', '3.2.13'
 gem 'pg'
 gem 'sass-twitter-bootstrap-rails', '~> 1.0'
 
+# once you go haml, you don't go back
+gem 'haml-rails'
+
 # like irb, but sexier and better in every way
 gem 'pry-rails'
 gem "jquerymobile-rails"
-
-
 
 gem 'websocket-rails'
 
