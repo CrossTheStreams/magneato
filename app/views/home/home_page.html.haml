@@ -2,30 +2,29 @@
   = stylesheet_link_tag "home"
   = javascript_include_tag "home"
   .all_content.center
-    .s{:style => "background-color:#E5E5E5; height:65px;"}
+    .s.magneato-header.table-bordered
       .logo{:style => "height:65px;"}
-        %img(src="/magneeto_logo.png")
-
+        %img.magneeto-logo(src="/magneeto_logo.png")
     .workouts
-      %table.table.table-condensed.table-bordered.span6.offset4
+      %table.table.table-condensed.table-bordered.span12{:style => "width:100%;"}
         %tr
           %td
-            .button-workouts
+            .button-workouts.float-right
               = link_to image_tag( '/cells/chest_cell.png',:onmouseout => '/cells/arms_cell_dwn.png')
           %td
-            .button-workouts
+            .button-workouts.float-left
               = link_to image_tag( '/cells/arms_cell.png', {:id=>"arm-cell"}), "/counter"
         %tr
           %td
-            .button-workouts
+            .button-workouts.float-right
               = link_to image_tag( '/cells/legs_cell.png')
           %td
-            .button-workouts
+            .button-workouts.float-left
               = link_to image_tag( '/cells/back_cell.png')
         %tr
           %td
-            .button-workouts
+            .button-workouts.float-right
               = link_to image_tag( '/cells/shoulders_cell.png')
           %td
-            .button-workouts
+            .button-workouts.float-left
               = link_to image_tag( '/cells/core_cell.png')

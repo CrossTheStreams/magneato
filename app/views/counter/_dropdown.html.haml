@@ -1,16 +1,15 @@
 - item_array ||= []
 .dropdown
   %a.dropdown-toggle
-    .black-text.hipster-btn
-      .drop-link
-        %span
-          #{item_array[0].to_s rescue ""}
-        %img{:src => "/icons/drop_dwn.png"}
+    .black-text.hipster-btn{:id => (item_array[0].to_s rescue "drp-dwn")}
+      %span
+        #{item_array[0].to_s rescue ""}
+      %img{:src => "/icons/drop_dwn.png", :width => "35px"}
     .list-container
-    %ul.dropdown-menu{:role => "menu", :arai => {:labelledby => "dLabel"}}
+    %ul.dropdown-menu.show{:role => "menu", :arai => {:labelledby => "dLabel"}, :data => {:open => "false"}}
       - item_array.each_with_index do |str,i|
         %br
         %li{:role => "presentation"}
-          %a{:role => "menuitem", :tabindex => "-1"}
+          .menu-item{:role => "menuitem", :tabindex => "-1"}
             #{str}
 
