@@ -107,7 +107,7 @@ void setup() {
   // initialize device
   Serial.println("Initializing I2C devices...");
   
-  // TODO - program stops here and requires reset to continue successfully
+  // FIX - program stops here and requires reset to continue successfully (INTERMITTENT)
   accelgyro.initialize();
 
   // verify connection
@@ -132,11 +132,11 @@ void loop() {
   //Serial.println("Attempting to read from client...");
   // && status == WL_CONNECTED // <-- do we need this as a condition
   
-  while (client.available() && status == WL_CONNECTED) {
+  /*while (client.available() && status == WL_CONNECTED) {
     char c = client.read();
     //Serial.write(c);
-  }
-  client.flush();
+  }*/
+  client.flush(); //this speeds up our program a lot - LEAVE IN
   //client.stop();
   
   /*
@@ -173,6 +173,7 @@ void loop() {
             Serial.println(strReps);
             
             httpRequest();
+            client.flush();   // EXPERIMENT - will this speed up data txm
         }
     }
 
@@ -188,8 +189,12 @@ void loop() {
     //     which happens when reps are too fast
     // TEST - either flush or always stop
     //     RESULT - ALWAYS STOP! no matter what - works well
+    //client.stop();
     client.stop();
-  } else { client.flush(); }
+  } /*else { 
+    client.stop(); 
+    delay(1000); Serial.print("."); 
+  }*/
 
   // if you're not connected, and ten seconds have passed since
   // your last connection, then connect again and send data:
