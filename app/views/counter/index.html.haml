@@ -3,30 +3,18 @@
   =stylesheet_link_tag "counter"
   =stylesheet_link_tag "application"
 .all_content.center
-  .header
-    .row
-      .span2
-        %h3 Back
-      .span2
-        %h3 Arms
+  .header.magneato-header.table-bordered
+    %h3#back.blue-text.span3{:style => "font-size:36px;pointer:cursor;z-index:500"}
+      %img{:src => "/icons/back_indicator.png"}
+      Back
+    %h3.blue-text#exercise{:style => "font-size:48px;"} Arms
   .main_content{:style => "font-style:helvetica neue ultra light;"}
-    %select
-      %option Exercise
-      %option Preacher Curl
-      %option Hammer Curl
-      %option Reverse Curl
-      %option Tricep Extention
-    %select
-      %option Weight
-      %option 5
-      %option 10
-      %option 15
-      %option 20
-      %option 25
-      %option 35
-      %option 40
-      %option 45
-      %option 50
-    = button_to 'Start'
+    = render :partial => "counter/dropdown", :locals => {:item_array => ["Exercise", "Preacher Curl", "Hammer Curl", "Reverse Curl", "Tricep Extension"], :offset => "padding-left: 70px;"}
+    = render :partial => "counter/dropdown", :locals => {:item_array => ["Weight","5","10","15","20","25","30","35","40","45","50"], :offset => "padding-left:72px;"}
+    .hipster-btn.green-text#start-btn{:style => "padding-left:22px;"}
+      Start
     %h1.jumbotron#reps.hide 0
-    = button_to 'Stop'
+    .hipster-btn.red-text#stop-btn{:style => "padding-left:50px;"}
+      Stop
+    %br
+    %br

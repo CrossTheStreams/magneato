@@ -1,3 +1,26 @@
 // Place all the styles related to the counter controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#back {
+ position:absolute;
+ font-size:36px;
+ cursor:pointer;
+ z-index:500
+}
+#exercise {
+  position: absolute;
+  width: 100%;
+  top: 0%;
+}
+#reps {
+  font-weight: 100;
+  font-size: 350px;
+  padding-left:20px;
+}
+.magneato-header h3 {
+  margin-top: 30px;
+  font-weight: 100;
+  font-size: 50px;
+}
+

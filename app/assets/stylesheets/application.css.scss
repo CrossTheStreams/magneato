@@ -14,9 +14,133 @@
 
 @import "twitter/bootstrap";
 body {
+  background-color:#f7f7f7;
+  font-weight: 100;
+  line-height: 4;
 }
 .center{
   text-align:center;
   margin-left:auto;
   margin-right:auto;
+}
+.center{
+  text-align:center;
+}
+.logo{
+  background-color:#E5E5E5;
+  height: 88px;
+  width:  88px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#arm-cell:active {
+  background-image:url(/cells/arms_cell_dwn.png);
+}
+.button-workouts{
+
+}
+table{
+  max-width: 0;
+  border-spacing:0;
+  border-collapse:collapse;
+}
+h3{
+  color: #C2C2C2;
+  font-size: 30px;
+  font-weight: 100;
+}
+.blue-text {
+  color: #25aae0;
+}
+.red-text {
+  color: #d20814;
+}
+.green-text {
+  color: #2fc33c;
+}
+.black-text {
+  color: black;
+}
+a.dropdown-toggle{
+  text-decoration: none;
+}
+.dropdown {
+  height:200px !important;
+}
+.hipster-btn {
+  display:inline;
+  width: 500px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 500px !important;
+  cursor: pointer !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-size: 82px !important;
+  text-decoration: none !important;
+  height: 110px !important;
+  line-height:5;
+  vertical-align:top !important;
+}
+.drop-title {
+ margin-right:-25px; 
+}
+.dropdown-menu li:hover {
+  background-color: #f7f7f7;
+}
+
+.dropdown-menu li > a {
+  font-size:60px !important;
+}
+
+.menu-item:hover {
+  color: black;
+  text-decoration: none;
+  background-color: #ffffff;
+}
+ul.dropdown-menu {
+  position: fixed;
+  opacity: 0;
+  top: -1500px;
+  overflow: scroll;
+  height: 150px;
+  margin-left: 0px;
+  padding: 0px 200px 500px 200px;
+  stroke: auto;
+  left: 24%;
+  width: 100px !important;
+}
+.drop-title {
+  margin-bottom:50px;
+}
+
+img.magneeto-logo {
+  width: 88px;
+  height: 66px;
+  left: 50%;
+  background-color: #f0f0f0;
+}
+
+.magneato-header {
+ height:90px;
+ font-family:"HelveticaNeue-Light";
+ background-color: #f0f0f0;
+}
+
+.menu-item {
+  cursor:pointer;
+  font-size:40px; 
+  line-height:1;
+}
+.main_content {
+  margin-top:-90px;
+}
+.overlay {
+  height: 1500px;
+  top:0px;
+  position:absolute;
+  z-index:-10000;
+  opacity:0;
+  width:100%;
 }

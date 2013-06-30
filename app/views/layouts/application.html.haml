@@ -8,5 +8,6 @@
   = yield :head
 %body
   = yield
+  .overlay
   :javascript
     var dispatcher = new WebSocketRails("#{CFG['domain']}/websocket");
