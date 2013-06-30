@@ -2,36 +2,36 @@
   = stylesheet_link_tag "home"
   = javascript_include_tag "home"
   .all_content.center
-    .span12
-      .logo
+    .span12{:style => "background-color:#E5E5E5; height:88px;"}
+      .logo.offset2{:style => "height:88px;"}
         %img(src="/magneeto_logo.png")
 
     .workouts
       .container-fluid
         .row
-          .span3
+          .span1-fluid
             .button-workouts
               = link_to image_tag( '/icons/chest.png')
               %h3 Chest
-          .span3
+          .span1-fluid
             .button-workouts
               = link_to image_tag( '/icons/arms.png')
               %h3 Arms
         .row
-          .span3
+          .span3-fluid
             .button-workouts
               = link_to image_tag( '/icons/legs.png')
               %h3 Legs
-          .span3
+          .span3-fluid
             .button-workouts
               = link_to image_tag( '/icons/back.png')
               %h3 Back
         .row
-          .span3
+          .span3-fluid
             .button-workouts
               = link_to image_tag( '/icons/shoulders.png')
               %h3 shoulders
-          .span3
+          .span3-fluid
             .button-workouts
               = link_to image_tag( '/icons/core.png')
               %h3 Core

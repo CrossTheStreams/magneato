@@ -31,12 +31,17 @@ body {
 
 }
 .button-workouts{
-  border: solid #E5E5E5;
-  font-family:"Helvetica Neue Light";
+  border: solid 1px #E5E5E5;
+  padding-right:20px;
+  padding-left:20px;
   height: 200px;
   width:  200px;
 }
-
+h3{
+  color: #C2C2C2;
+  font-size: 30px;
+  font-weight: 100;
+}
 .blue-text {
   color: #25aae0;
 }
