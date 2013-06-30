@@ -10,24 +10,16 @@
       .span6
         %h3.blue-text Arms
   .main_content{:style => "font-style:helvetica neue ultra light;"}
-    %select
-      %option Exercise
-      %option Preacher Curl
-      %option Hammer Curl
-      %option Reverse Curl
-      %option Tricep Extention
-    %br 
-    %select
-      %option Weight
-      %option 5
-      %option 10
-      %option 15
-      %option 20
-      %option 25
-      %option 35
-      %option 40
-      %option 45
-      %option 50
-    .hipster-btn.green-text Start
+    = render :partial => "counter/dropdown", :locals => {:item_array => ["Exercise", "Preacher Curl", "Hammer Curl", "Reverse Curl", "Tricep Extension"]}
+    %br
+    = render :partial => "counter/dropdown", :locals => {:item_array => ["Weight","5","10","15","20","25","30","35","40","45","50"]}
+    %br
+    .hipster-btn.green-text 
+      Start
+    %br
     %h1.jumbotron#reps.hide 0
-    .hipster-btn.red-text Stop
+    %br 
+    .hipster-btn.red-text
+      Stop
+    %br
+    %br

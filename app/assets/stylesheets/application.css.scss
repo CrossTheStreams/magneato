@@ -16,6 +16,7 @@
 body {
   background-color:#f7f7f7;
   font-weight: 100;
+  line-height: 4;
 }
 .center{
   text-align:center;
@@ -31,15 +32,74 @@ body {
 .green-text {
   color: #2fc33c;
 }
-.hipster-btn {
-  cursor: pointer;
-  background: none;
-  border: none;
-  box-shadow: none;
-  font-size: 65px;
+.black-text {
+  color: black;
 }
+a.dropdown-toggle{
+  text-decoration: none;
+}
+.hipster-btn {
+  cursor: pointer !important;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-size: 90px !important;
+  text-decoration: none !important;
+  height: 200px;
+}
+.drop-title {
+ margin-right:-25px; 
+}
+.dropdown-menu li:hover {
+  background-color: #f7f7f7;
+}
+
+.dropdown-menu li > a {
+  font-size:60px !important;
+}
+
+.dropdown-menu li > a:hover, .dropdown-menu .active > a, .dropdown-menu .active > a:hover {
+  color: black;
+  text-decoration: none;
+  background-color: #f7f7f7;
+}
+ul.dropdown-menu {
+  position: fixed;
+  top: 200px;
+  overflow: scroll;
+  height: 130px;
+  margin-left: 0px;
+  padding: 0px 400px 500px 200px;
+  stroke: auto;
+  left: 24%;
+  width: 100px !important;
+}
+ul.dropdown-menu a {
+  font-weight: 100;
+  text-align: center;
+  font-size: 40px;
+  cursor:pointer;
+}
+.drop-title {
+  margin-bottom:50px;
+}
+.list-container {
+
+}
+
 .magneato-header {
  margin-bottom: 50px;
- height:86px;
+ height:200px;
  background-color: #f0f0f0;
 }
+
+//.bootstrap-select.hipster-btn button.dropdown-toggle {
+  //height: 100px;
+  //overflow: visible;
+  //width:300px;
+//}
+
+//.bootstrap-select button.dropdown-toggle.hipster-btn span.filter-option {
+  //height: 100px;
+  //overflow: visible;
+//}
