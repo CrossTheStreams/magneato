@@ -52,6 +52,10 @@ char serverIP[] = "192.168.1.124";
 
 //int serverPort = 80;
 int serverPort = 3000;
+int wifiTTL = 3000;
+
+// how many sockets do we need
+int totalConnected = 0, totalDisconnected = 0; //for debugging
 
 unsigned long requestSentTime = 0;
 
@@ -63,7 +67,7 @@ const unsigned long postingInterval = 10*1000;  // delay between updates, in mil
 // specific I2C addresses may be passed as a parameter here
 // AD0 low = 0x68 (default for InvenSense evaluation board)
 // AD0 high = 0x69
-MPU6050 accelgyro;
+MPU6050 accelgyro = 0;
 
 int16_t ax, ay, az;
 int rep_state;
@@ -91,7 +95,8 @@ void setup() {
     status = WiFi.begin(ssid, pass);
 
     // wait 10 seconds for connection:
-    delay(10000);
+    // future TODO - make this faster
+    delay(wifiTTL);
   } 
   // you're connected now, so print out the status:
   printWifiStatus();
@@ -101,16 +106,22 @@ void setup() {
   Wire.begin();
   // initialize device
   Serial.println("Initializing I2C devices...");
-  accelgyro.initialize();
-
-  // verify connection
-  Serial.println("Testing device connections...");
-  Serial.println(accelgyro.testConnection() ? "MPU9150 connection successful" : "MPU9150 connection failed");
+  
+  while ( accelgyro==0 || (!accelgyro.testConnection())) {
+    // TODO - program stops here and requires reset to continue successfully
+    accelgyro.initialize();
+  
+    // verify connection
+    Serial.println("Testing device connections...");
+    Serial.println(accelgyro.testConnection() ? "MPU9150 connection successful" : "MPU9150 connection failed");
+    Serial.println();
     
-  //magneeto custom stuff
-  // todo: add in LPF for accel (can I do that on the MPU9150
-  // todo: add in calibration for random placement on weight
-  rep_state = 0;
+    delay(5000);
+  }
+    //magneeto custom stuff
+    // todo: add in LPF for accel (can I do that on the MPU9150
+    // todo: add in calibration for random placement on weight
+    rep_state = 0;
 
 }
 
@@ -122,12 +133,14 @@ void loop() {
   // send it out the serial port.  This is for debugging
   // purposes only:
   //Serial.println("Attempting to read from client...");
+  // && status == WL_CONNECTED // <-- do we need this as a condition
+  
   while (client.available() && status == WL_CONNECTED) {
     char c = client.read();
     //Serial.write(c);
   }
   client.flush();
-  client.stop();
+  //client.stop();
   
   /*
   // time between request sent and response received
@@ -169,10 +182,17 @@ void loop() {
   // if there's no net connection, but there was one last time
   // through the loop, then stop the client:
   if (!client.connected() && lastConnected) {
+    //if (client.connected()) {
     Serial.println("disconnecting.\n");
-    client.flush();
+    totalDisconnected++;
+    //client.flush();
+    
+    // PROBLEM OCCURS WHEN TOO MANY CONNECTIONS DON'T DISCONNECT
+    //     which happens when reps are too fast
+    // TEST - either flush or always stop
+    //     RESULT - ALWAYS STOP! no matter what - works well
     client.stop();
-  }
+  } else { client.flush(); }
 
   // if you're not connected, and ten seconds have passed since
   // your last connection, then connect again and send data:
@@ -190,14 +210,13 @@ void httpRequest() {
   
   if (client.connect(server, serverPort)) {
     Serial.println("Connecting...");
+    totalConnected++;
     // send the HTTP PUT request:
     client.println("GET /counter/ping HTTP/1.1");
     char hostStr[] = "Host: ";
     strcat(hostStr, serverIP);
     client.println(hostStr);
     client.println("User-Agent: arduino-ethernet");
-    //client.println("Content-Type: application/x-www-form-urlencoded");
-    //client.println("Name=Jonathan+Doe&Age=23&Formula=a+%2B+b+%3D%3D+13%25%21");
     client.println("Connection: close");
     client.println();
 
@@ -219,9 +238,12 @@ void httpRequest() {
     strcat(str, strPort);
     strcat(str, " failed");
     strcat(str, "...disconnecting");
+    char strConnDisconn[50] = "\ntotal connected - total disconnected = ";
+    strcat(str, strConnDisconn);
+    itoa(totalConnected - totalDisconnected, strConnDisconn, 10);
+    strcat(str, strConnDisconn);
     
     Serial.println(str);
-    client.flush();
     client.stop();
   }
 }
