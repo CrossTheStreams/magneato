@@ -54,14 +54,6 @@ char serverIP[] = "192.168.1.124";
 int serverPort = 3000;
 int wifiTTL = 3000;
 
-// how many sockets do we need
-int totalConnected = 0, totalDisconnected = 0; //for debugging
-
-unsigned long requestSentTime = 0;
-
-unsigned long lastConnectionTime = 0;           // last time you connected to the server, in milliseconds
-boolean lastConnected = false;                  // state of the connection last time through the main loop
-const unsigned long postingInterval = 10*1000;  // delay between updates, in milliseconds
 
 // class default I2C address is 0x68
 // specific I2C addresses may be passed as a parameter here
@@ -72,6 +64,9 @@ MPU6050 accelgyro;
 int16_t ax, ay, az;
 int rep_state;
 int totalReps = 0;
+
+int ready_led = 7;
+boolean rep;
 
 void setup() {
   //Initialize serial and wait for port to open:
@@ -107,6 +102,7 @@ void setup() {
   // initialize device
   Serial.println("Initializing I2C devices...");
   
+  pinMode(ready_led, OUTPUT);
   // FIX - program stops here and requires reset to continue successfully (INTERMITTENT)
   accelgyro.initialize();
 
@@ -119,27 +115,20 @@ void setup() {
   // todo: add in LPF for accel (can I do that on the MPU9150
   // todo: add in calibration for random placement on weight
   rep_state = 0;
-
+  rep = false;
+  digitalWrite(ready_led, HIGH);
 }
 
 void loop() {
   // read raw accel/gyro measurements from device
   accelgyro.getAcceleration(&ax, &ay, &az);
     
-  // if there's incoming data from the net connection.
-  // send it out the serial port.  This is for debugging
-  // purposes only:
-  //Serial.println("Attempting to read from client...");
-  // && status == WL_CONNECTED // <-- do we need this as a condition
-  
-  /*while (client.available() && status == WL_CONNECTED) {
-    char c = client.read();
-    //Serial.write(c);
-  }*/
-  client.flush(); //this speeds up our program a lot - LEAVE IN
-  //client.stop();
-  
-  /*
+ while (client.available()) {
+   client.flush(); 
+   char c = client.read();
+  }
+ 
+ /*
   // time between request sent and response received
   unsigned long duration = millis() - requestSentTime;
   char strDuration[5];
@@ -165,45 +154,16 @@ void loop() {
     {
         if (az > 0) {
             rep_state = 1;
-            totalReps++;
-            char strReps[10] = "Rep ";
-            char strTotalReps[6];
-            itoa(totalReps, strTotalReps, 10);
-            strcat(strReps, strTotalReps);
-            Serial.println(strReps);
-            
+            rep = true;
             httpRequest();
-            client.flush();   // EXPERIMENT - will this speed up data txm
         }
     }
-
-  // if there's no net connection, but there was one last time
-  // through the loop, then stop the client:
-  if (!client.connected() && lastConnected) {
-    //if (client.connected()) {
-    Serial.println("disconnecting.\n");
-    totalDisconnected++;
-    //client.flush();
     
-    // PROBLEM OCCURS WHEN TOO MANY CONNECTIONS DON'T DISCONNECT
-    //     which happens when reps are too fast
-    // TEST - either flush or always stop
-    //     RESULT - ALWAYS STOP! no matter what - works well
-    //client.stop();
-    client.stop();
-  } /*else { 
-    client.stop(); 
-    delay(1000); Serial.print("."); 
-  }*/
-
-  // if you're not connected, and ten seconds have passed since
-  // your last connection, then connect again and send data:
-//  if(!client.connected() && (millis() - lastConnectionTime > postingInterval)) {
-//    httpRequest();
-//  }
-  // store the state of the connection for next time through
-  // the loop:
-  lastConnected = client.connected();
+    if (rep && !client.connected()) {
+      Serial.println("disconnecting");
+      client.stop();
+      rep = false;
+    }  
 }
 
 // this method makes a HTTP connection to the server:
@@ -212,40 +172,17 @@ void httpRequest() {
   
   if (client.connect(server, serverPort)) {
     Serial.println("Connecting...");
-    totalConnected++;
     // send the HTTP PUT request:
     client.println("GET /counter/ping HTTP/1.1");
-    char hostStr[] = "Host: ";
-    strcat(hostStr, serverIP);
-    client.println(hostStr);
-    client.println("User-Agent: arduino-ethernet");
+    //char hostStr[] = "Host: ";
+    //strcat(hostStr, serverIP);
+    client.println("Host: 192.168.1.124");
+    //client.println(serverIP);
     client.println("Connection: close");
     client.println();
-
-    // note the time that the connection was made:
-    lastConnectionTime = millis();
-    requestSentTime = millis();
-    char strReps[50] = "Sent to server: Rep ";
-    char strTotalReps[6];
-    itoa(totalReps, strTotalReps, 10);
-    strcat(strReps, strTotalReps);
-    Serial.println(strReps);
   } 
   else {
-    // if you couldn't make a connection:
-    char str[200] = "connection to ", strPort[9];
-    itoa(serverPort, strPort, 10);
-    strcat(str, server);
-    strcat(str, " on port ");
-    strcat(str, strPort);
-    strcat(str, " failed");
-    strcat(str, "...disconnecting");
-    char strConnDisconn[50] = "\ntotal connected - total disconnected = ";
-    strcat(str, strConnDisconn);
-    itoa(totalConnected - totalDisconnected, strConnDisconn, 10);
-    strcat(str, strConnDisconn);
-    
-    Serial.println(str);
+    Serial.println("connection failed ... disconnecting");
     client.stop();
   }
 }
