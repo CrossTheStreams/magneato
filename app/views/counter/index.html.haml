@@ -3,23 +3,16 @@
   =stylesheet_link_tag "counter"
   =stylesheet_link_tag "application"
 .all_content.center
-  .header.magneato-header
-    .row
-      .span6
-        %h3.blue-text < Back
-      .span6
-        %h3.blue-text Arms
+  .header.magneato-header.table-bordered
+    %h3.blue-text.span3 < Back
+    %h3.blue-text#exercise Arms
   .main_content{:style => "font-style:helvetica neue ultra light;"}
     = render :partial => "counter/dropdown", :locals => {:item_array => ["Exercise", "Preacher Curl", "Hammer Curl", "Reverse Curl", "Tricep Extension"]}
-    %br
     = render :partial => "counter/dropdown", :locals => {:item_array => ["Weight","5","10","15","20","25","30","35","40","45","50"]}
-    %br
-    .hipster-btn.green-text 
+    .hipster-btn.green-text#start-btn
       Start
-    %br
     %h1.jumbotron#reps.hide 0
-    %br 
-    .hipster-btn.red-text
+    .hipster-btn.red-text#stop-btn
       Stop
     %br
     %br
