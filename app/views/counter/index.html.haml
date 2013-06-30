@@ -7,9 +7,9 @@
     %h3#back.blue-text.span3{:style => "font-size:36px;pointer:cursor;z-index:500"}
       %img{:src => "/icons/back_indicator.png"}
       Back
-    %h3.blue-text#exercise{:style => "font-size:48px;"} Arms
+    %h3.blue-text#exercise{:style => "font-size:48px;"} #{@workout.capitalize}
   .main_content{:style => "font-style:helvetica neue ultra light;"}
-    = render :partial => "counter/dropdown", :locals => {:item_array => ["Exercise", "Preacher Curl", "Hammer Curl", "Reverse Curl", "Tricep Extension"], :offset => "padding-left: 70px;"}
+    = render :partial => "counter/dropdown", :locals => {:item_array => ["Exercise", "Dumbell Curl", "Hammer Curl", "Reverse Curl", "Tricep Extension"], :offset => "padding-left: 70px;"}
     = render :partial => "counter/dropdown", :locals => {:item_array => ["Weight","5","10","15","20","25","30","35","40","45","50"], :offset => "padding-left:72px;"}
     .hipster-btn.green-text#start-btn{:style => "padding-left:22px;"}
       Start

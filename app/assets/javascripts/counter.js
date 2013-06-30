@@ -13,6 +13,10 @@ $(document).ready(function() {
     } 
   });
 
+  $("#back").on("click",function() {
+    document.location = "/"
+  });
+
   $("#Exercise").on("click",function() {
     toggle_drop_down($(this).siblings("ul")); 
   });
@@ -71,7 +75,6 @@ function toggle_drop_down (elem) {
 function bind_menu_items() {
   $("#Exercise").siblings("ul").children("li").not(".item-0").on("click",function() {
     toggle_drop_down($("#Exercise").siblings("ul"));
-    $("#exercise").text($(this).find('.menu-item').text());
     $("li").off("click")
   });
   $("#Weight").siblings("ul").children("li").not(".item-0").on("click",function() {

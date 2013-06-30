@@ -4,29 +4,27 @@
   .all_content.center
     .s.magneato-header.table-bordered
       .logo{:style => "height:65px;"}
-        %img.magneeto-logo(src="/magneeto_logo.png")
+        = link_to image_tag( '/magneeto_logo.png',{:class => "magneeto-logo"})
     .workouts
-
-      %table.table.table-condensed.table-bordered.span12{:style => "width:100%;"}
-
+      %table.table.table-condensed.table-bordered{:style => "width:100%;display:inline-table;"}
         %tr
-          %td
+          %td{:data => {:workout => "chest"}}
             .button-workouts.float-right
-              = link_to image_tag( '/cells/chest_cell.png',:onmouseout => '/cells/arms_cell_dwn.png')
-          %td
+              = link_to image_tag('/cells/chest_cell.png'), "/counter?workout=chest"
+          %td{:data => {:workout => "arms"}}
             .button-workouts.float-left
-              = link_to image_tag( '/cells/arms_cell.png', {:id=>"arm-cell"}), "/counter"
+              = link_to image_tag('/cells/arms_cell.png'), "/counter?workout=arms"
         %tr
-          %td
+          %td{:data => {:workout => "legs"}}
             .button-workouts.float-right
-              = link_to image_tag( '/cells/legs_cell.png')
-          %td
+              = link_to image_tag('/cells/legs_cell.png'), "/counter?workout=legs"
+          %td{:data => {:workout => "back"}}
             .button-workouts.float-left
-              = link_to image_tag( '/cells/back_cell.png')
+              = link_to image_tag('/cells/back_cell.png'), "/counter?workout=back"
         %tr
-          %td
+          %td{:data => {:workout => "shoulders"}}
             .button-workouts.float-right
-              = link_to image_tag( '/cells/shoulders_cell.png')
-          %td
+              = link_to image_tag('/cells/shoulders_cell.png'), "/counter?workout=shoulders"
+          %td{:data => {:workout => "core"}}
             .button-workouts.float-left
-              = link_to image_tag( '/cells/core_cell.png')
+              = link_to image_tag('/cells/core_cell.png'), "/counter?workout=core" 
