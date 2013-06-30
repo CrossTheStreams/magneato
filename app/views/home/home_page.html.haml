@@ -2,36 +2,30 @@
   = stylesheet_link_tag "home"
   = javascript_include_tag "home"
   .all_content.center
-    .span12{:style => "background-color:#E5E5E5; height:88px;"}
-      .logo.offset2{:style => "height:88px;"}
+    .s{:style => "background-color:#E5E5E5; height:65px;"}
+      .logo{:style => "height:65px;"}
         %img(src="/magneeto_logo.png")
 
     .workouts
-      .container-fluid
-        .row
-          .span1-fluid
+      %table.table.table-condensed.table-bordered.span6.offset4
+        %tr
+          %td
             .button-workouts
-              = link_to image_tag( '/icons/chest.png')
-              %h3 Chest
-          .span1-fluid
+              = link_to image_tag( '/cells/chest_cell.png',:onmouseout => '/cells/arms_cell_dwn.png')
+          %td
             .button-workouts
-              = link_to image_tag( '/icons/arms.png')
-              %h3 Arms
-        .row
-          .span3-fluid
+              = link_to image_tag( '/cells/arms_cell.png', {:id=>"arm-cell"}), "/counter"
+        %tr
+          %td
             .button-workouts
-              = link_to image_tag( '/icons/legs.png')
-              %h3 Legs
-          .span3-fluid
+              = link_to image_tag( '/cells/legs_cell.png')
+          %td
             .button-workouts
-              = link_to image_tag( '/icons/back.png')
-              %h3 Back
-        .row
-          .span3-fluid
+              = link_to image_tag( '/cells/back_cell.png')
+        %tr
+          %td
             .button-workouts
-              = link_to image_tag( '/icons/shoulders.png')
-              %h3 shoulders
-          .span3-fluid
+              = link_to image_tag( '/cells/shoulders_cell.png')
+          %td
             .button-workouts
-              = link_to image_tag( '/icons/core.png')
-              %h3 Core
+              = link_to image_tag( '/cells/core_cell.png')

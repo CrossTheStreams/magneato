@@ -19,23 +19,24 @@ body {
 }
 .center{
   text-align:center;
-  margin-left:auto;
-  margin-right:auto;
 }
 .logo{
   background-color:#E5E5E5;
-  height: 120px;
-  width:  120px;
+  height: 88px;
+  width:  88px;
+  margin-left: auto;
+  margin-right: auto;
 }
-.workouts{
-
+#arm-cell:active {
+  background-image:url(/cells/arms_cell_dwn.png);
 }
 .button-workouts{
-  border: solid 1px #E5E5E5;
-  padding-right:20px;
-  padding-left:20px;
-  height: 200px;
-  width:  200px;
+
+}
+table{
+  max-width: 0;
+  border-spacing:0;
+  border-collapse:collapse;
 }
 h3{
   color: #C2C2C2;
