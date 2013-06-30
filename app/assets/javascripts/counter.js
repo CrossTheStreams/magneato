@@ -13,6 +13,12 @@ $(document).ready(function() {
     } 
   });
 
+  $(document).keydown(function() {
+    if (event.which == 189) {
+      update_count($("#reps"));  
+    }
+  });
+
   $("#back").on("click",function() {
     document.location = "/"
   });
