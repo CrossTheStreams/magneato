@@ -20,8 +20,29 @@ body {
 }
 .center{
   text-align:center;
-  margin-left:auto;
-  margin-right:auto;
+}
+.logo{
+  background-color:#E5E5E5;
+  height: 88px;
+  width:  88px;
+  margin-left: auto;
+  margin-right: auto;
+}
+#arm-cell:active {
+  background-image:url(/cells/arms_cell_dwn.png);
+}
+.button-workouts{
+
+}
+table{
+  max-width: 0;
+  border-spacing:0;
+  border-collapse:collapse;
+}
+h3{
+  color: #C2C2C2;
+  font-size: 30px;
+  font-weight: 100;
 }
 .blue-text {
   color: #25aae0;
@@ -92,14 +113,3 @@ ul.dropdown-menu a {
  height:200px;
  background-color: #f0f0f0;
 }
-
-//.bootstrap-select.hipster-btn button.dropdown-toggle {
-  //height: 100px;
-  //overflow: visible;
-  //width:300px;
-//}
-
-//.bootstrap-select button.dropdown-toggle.hipster-btn span.filter-option {
-  //height: 100px;
-  //overflow: visible;
-//}

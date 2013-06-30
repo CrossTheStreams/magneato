@@ -1,3 +1,31 @@
-=content_for :head do 
+=content_for :head do
   = stylesheet_link_tag "home"
   = javascript_include_tag "home"
+  .all_content.center
+    .s{:style => "background-color:#E5E5E5; height:65px;"}
+      .logo{:style => "height:65px;"}
+        %img(src="/magneeto_logo.png")
+
+    .workouts
+      %table.table.table-condensed.table-bordered.span6.offset4
+        %tr
+          %td
+            .button-workouts
+              = link_to image_tag( '/cells/chest_cell.png',:onmouseout => '/cells/arms_cell_dwn.png')
+          %td
+            .button-workouts
+              = link_to image_tag( '/cells/arms_cell.png', {:id=>"arm-cell"}), "/counter"
+        %tr
+          %td
+            .button-workouts
+              = link_to image_tag( '/cells/legs_cell.png')
+          %td
+            .button-workouts
+              = link_to image_tag( '/cells/back_cell.png')
+        %tr
+          %td
+            .button-workouts
+              = link_to image_tag( '/cells/shoulders_cell.png')
+          %td
+            .button-workouts
+              = link_to image_tag( '/cells/core_cell.png')
