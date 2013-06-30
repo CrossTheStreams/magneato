@@ -1,15 +1,17 @@
 - item_array ||= []
+- offset ||= ""
+- drop_name = item_array[0].to_s rescue "drp-dwn"
 .dropdown
   %a.dropdown-toggle
-    .black-text.hipster-btn{:id => (item_array[0].to_s rescue "drp-dwn")}
+    .black-text.hipster-btn{:id => drop_name,:style => offset}
       %span
-        #{item_array[0].to_s rescue ""}
-      %img{:src => "/icons/drop_dwn.png", :width => "35px"}
+        #{drop_name}
+      %img{:src => "/icons/drop_dwn.png", :width => "55px"}
     .list-container
     %ul.dropdown-menu.show{:role => "menu", :arai => {:labelledby => "dLabel"}, :data => {:open => "false"}}
       - item_array.each_with_index do |str,i|
         %br
-        %li{:role => "presentation"}
+        %li{:role => "presentation",:class => ("item-"+i.to_s)}
           .menu-item{:role => "menuitem", :tabindex => "-1"}
             #{str}
 

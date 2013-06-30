@@ -2,16 +2,21 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+#back {
+ position:absolute;
+ font-size:36px;
+ cursor:pointer;
+ z-index:500
+}
 #exercise {
   position: absolute;
-  left: 45%;
+  width: 100%;
   top: 0%;
 }
 #reps {
-  margin-top: 100px;
-  margin-bottom: 80px;
   font-weight: 100;
-  font-size: 200px;
+  font-size: 350px;
+  padding-left:20px;
 }
 .magneato-header h3 {
   margin-top: 30px;
