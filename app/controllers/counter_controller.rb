@@ -2,6 +2,9 @@ class CounterController < ApplicationController
 
   def index
        
+    @workout = params[:workout]
+    @workout = "Arms" if @workout.blank?
+
   end
 
   

@@ -16,3 +16,21 @@
 //= require websocket_rails/main
 //
 
+
+function global_highlight (color,hold) {
+  $(".overlay").animate({
+    "z-index":"1000"},0,function() {
+    $(".overlay").animate({
+      "backgroundColor":color,
+      "opacity":1},20,function(){
+        if (hold == undefined || hold == false) {
+          $(".overlay").animate({
+            "background-color":"#f7f7f7",
+            "opacity": "0"
+          },600,function(){
+            $(".overlay").css("z-index","-1000")
+          }); 
+        }
+    })
+  })
+}

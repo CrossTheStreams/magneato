@@ -1,3 +1,30 @@
-=content_for :head do 
+=content_for :head do
   = stylesheet_link_tag "home"
   = javascript_include_tag "home"
+  .all_content.center
+    .s.magneato-header.table-bordered
+      .logo{:style => "height:65px;"}
+        = link_to image_tag( '/magneeto_logo.png',{:class => "magneeto-logo"})
+    .workouts
+      %table.table.table-condensed.table-bordered{:style => "width:100%;display:inline-table;"}
+        %tr
+          %td{:data => {:workout => "chest"}}
+            .button-workouts.float-right
+              = link_to image_tag('/cells/chest_cell.png'), "/counter?workout=chest"
+          %td{:data => {:workout => "arms"}}
+            .button-workouts.float-left
+              = link_to image_tag('/cells/arms_cell.png'), "/counter?workout=arms"
+        %tr
+          %td{:data => {:workout => "legs"}}
+            .button-workouts.float-right
+              = link_to image_tag('/cells/legs_cell.png'), "/counter?workout=legs"
+          %td{:data => {:workout => "back"}}
+            .button-workouts.float-left
+              = link_to image_tag('/cells/back_cell.png'), "/counter?workout=back"
+        %tr
+          %td{:data => {:workout => "shoulders"}}
+            .button-workouts.float-right
+              = link_to image_tag('/cells/shoulders_cell.png'), "/counter?workout=shoulders"
+          %td{:data => {:workout => "core"}}
+            .button-workouts.float-left
+              = link_to image_tag('/cells/core_cell.png'), "/counter?workout=core" 
